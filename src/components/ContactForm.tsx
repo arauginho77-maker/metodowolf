@@ -65,12 +65,21 @@ const ContactForm = () => {
 
       setIsSubmitting(true);
 
-      // Simula envio (integração real seria feita aqui)
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // Monta mensagem para WhatsApp
+      const mensagem = `Olá! Meu nome é ${formData.name}.%0A%0A` +
+        `📱 Celular: ${formData.phone}%0A` +
+        `📧 Email: ${formData.email}%0A` +
+        `🎓 Curso de interesse: ${formData.course}%0A` +
+        (formData.time ? `⏰ Melhor horário: ${formData.time}%0A` : '') +
+        (formData.origin ? `📍 Como nos conheceu: ${formData.origin}%0A` : '') +
+        `%0AGostaria de informações sobre matrícula na UNOPAR.`;
+
+      // Abre WhatsApp com mensagem
+      window.open(`https://www.contate.me/5566981109810?text=${mensagem}`, "_blank");
 
       toast({
-        title: "Mensagem enviada!",
-        description: "Nossa consultora entrará em contato em breve via WhatsApp.",
+        title: "Redirecionando para WhatsApp!",
+        description: "Continue a conversa com nossa consultora.",
       });
 
       setFormData({
