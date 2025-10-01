@@ -3,11 +3,8 @@ import { Button } from "@/components/ui/button";
 
 const WhatsAppButton = () => {
   const handleClick = () => {
-    const message = encodeURIComponent(
-      "Olá, tenho interesse em fazer matrícula na UNOPAR. Gostaria de mais informações."
-    );
     window.open(
-      `https://wa.me/5511999999999?text=${message}&utm_source=site&utm_campaign=matricula`,
+      "https://www.contate.me/5566981109810",
       "_blank"
     );
   };

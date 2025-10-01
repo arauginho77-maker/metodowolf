@@ -54,10 +54,7 @@ const CourseList = () => {
   ];
 
   const handleCourseClick = (courseName: string) => {
-    const message = encodeURIComponent(
-      `Olá, tenho interesse no curso de ${courseName} pela UNOPAR. Quero informações e ajuda para finalizar a matrícula.`
-    );
-    window.open(`https://wa.me/5511999999999?text=${message}`, "_blank");
+    window.open("https://www.contate.me/5566981109810", "_blank");
   };
 
   return (

@@ -15,10 +15,7 @@ const Header = () => {
   }, []);
 
   const handleWhatsAppClick = () => {
-    const message = encodeURIComponent(
-      "Olá, tenho interesse em fazer matrícula na UNOPAR. Gostaria de mais informações."
-    );
-    window.open(`https://wa.me/5511999999999?text=${message}`, "_blank");
+    window.open("https://www.contate.me/5566981109810", "_blank");
   };
 
   const scrollToSection = (id: string) => {
@@ -65,8 +62,8 @@ const Header = () => {
           </nav>
 
           <div className="hidden lg:flex items-center gap-4">
-            <a href="tel:+5511999999999" className="text-sm text-muted-foreground hover:text-primary transition-smooth">
-              (11) 99999-9999
+            <a href="tel:+5566981109810" className="text-sm text-muted-foreground hover:text-primary transition-smooth">
+              (66) 98110-9810
             </a>
             <Button variant="hero" size="default" onClick={handleWhatsAppClick}>
               Falar com Consultora
