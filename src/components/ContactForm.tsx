@@ -25,6 +25,7 @@ const contactSchema = z.object({
 
 const ContactForm = () => {
   const { toast } = useToast();
+  const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -47,6 +48,19 @@ const ContactForm = () => {
     "Recursos Humanos",
     "Outro",
   ];
+
+  const handleNextStep = () => {
+    // Valida campos do passo 1
+    if (!formData.name || !formData.phone || !formData.course) {
+      toast({
+        title: "Atenção",
+        description: "Preencha todos os campos obrigatórios",
+        variant: "destructive",
+      });
+      return;
+    }
+    setStep(2);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -105,123 +119,165 @@ const ContactForm = () => {
   };
 
   return (
-    <section id="contato" className="py-20">
+    <section id="contato" className="py-20 bg-secondary/20">
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8">
             <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-primary mb-4">
               Prefere preencher um formulário?
             </h2>
             <p className="text-muted-foreground text-lg">
               Deixe seus dados e nossa consultora entrará em contato
             </p>
+            
+            {/* Alerta de urgência */}
+            <div className="mt-6 bg-accent/10 border-2 border-accent/30 rounded-lg p-4 max-w-md mx-auto">
+              <p className="text-accent font-semibold flex items-center justify-center gap-2">
+                <span>⚡</span>
+                Garanta sua vaga agora - Atendimento prioritário nas próximas 2 horas
+              </p>
+            </div>
+          </div>
+
+          {/* Barra de progresso */}
+          <div className="mb-8">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${step >= 1 ? 'bg-accent text-white' : 'bg-secondary text-muted-foreground'}`}>
+                1
+              </div>
+              <div className={`h-1 w-20 ${step >= 2 ? 'bg-accent' : 'bg-secondary'}`} />
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${step >= 2 ? 'bg-accent text-white' : 'bg-secondary text-muted-foreground'}`}>
+                2
+              </div>
+            </div>
+            <p className="text-center text-sm text-muted-foreground">
+              Passo {step} de 2
+            </p>
           </div>
 
           <form onSubmit={handleSubmit} className="bg-card shadow-elevated rounded-xl p-8 space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="name">Nome completo *</Label>
-              <Input
-                id="name"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                placeholder="Seu nome completo"
-                required
-              />
-            </div>
+            {step === 1 ? (
+              // PASSO 1: Dados essenciais
+              <>
+                <div className="space-y-2">
+                  <Label htmlFor="name">Nome completo *</Label>
+                  <Input
+                    id="name"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    placeholder="Seu nome completo"
+                    required
+                  />
+                </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label htmlFor="phone">Celular com DDD *</Label>
-                <Input
-                  id="phone"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  placeholder="(11) 99999-9999"
-                  required
-                />
-              </div>
+                <div className="space-y-2">
+                  <Label htmlFor="phone">WhatsApp com DDD *</Label>
+                  <Input
+                    id="phone"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    placeholder="(11) 99999-9999"
+                    required
+                  />
+                </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="email">E-mail *</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="seu@email.com"
-                  required
-                />
-              </div>
-            </div>
+                <div className="space-y-2">
+                  <Label htmlFor="course">Curso de interesse *</Label>
+                  <Select value={formData.course} onValueChange={(value) => setFormData({ ...formData, course: value })}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecione um curso" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {courses.map((course) => (
+                        <SelectItem key={course} value={course}>
+                          {course}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="course">Curso de interesse *</Label>
-              <Select value={formData.course} onValueChange={(value) => setFormData({ ...formData, course: value })}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecione um curso" />
-                </SelectTrigger>
-                <SelectContent>
-                  {courses.map((course) => (
-                    <SelectItem key={course} value={course}>
-                      {course}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+                <Button type="button" variant="hero" size="lg" className="w-full" onClick={handleNextStep}>
+                  Continuar →
+                </Button>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label htmlFor="time">Melhor horário para contato</Label>
-                <Select value={formData.time} onValueChange={(value) => setFormData({ ...formData, time: value })}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Selecione" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="manha">Manhã</SelectItem>
-                    <SelectItem value="tarde">Tarde</SelectItem>
-                    <SelectItem value="noite">Noite</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+                <p className="text-xs text-muted-foreground text-center">
+                  * Campos obrigatórios
+                </p>
+              </>
+            ) : (
+              // PASSO 2: Informações complementares
+              <>
+                <div className="space-y-2">
+                  <Label htmlFor="email">E-mail</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    placeholder="seu@email.com"
+                  />
+                </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="origin">Como nos conheceu?</Label>
-                <Select value={formData.origin} onValueChange={(value) => setFormData({ ...formData, origin: value })}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Selecione" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="instagram">Instagram</SelectItem>
-                    <SelectItem value="facebook">Facebook</SelectItem>
-                    <SelectItem value="google">Google</SelectItem>
-                    <SelectItem value="indicacao">Indicação</SelectItem>
-                    <SelectItem value="outro">Outro</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="time">Melhor horário para contato</Label>
+                    <Select value={formData.time} onValueChange={(value) => setFormData({ ...formData, time: value })}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="manha">Manhã</SelectItem>
+                        <SelectItem value="tarde">Tarde</SelectItem>
+                        <SelectItem value="noite">Noite</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
 
-            <div className="flex items-start gap-3">
-              <Checkbox
-                id="acceptWhatsApp"
-                checked={formData.acceptWhatsApp}
-                onCheckedChange={(checked) =>
-                  setFormData({ ...formData, acceptWhatsApp: checked as boolean })
-                }
-              />
-              <Label htmlFor="acceptWhatsApp" className="text-sm leading-relaxed cursor-pointer">
-                Aceito receber mensagens via WhatsApp com informações sobre minha matrícula *
-              </Label>
-            </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="origin">Como nos conheceu?</Label>
+                    <Select value={formData.origin} onValueChange={(value) => setFormData({ ...formData, origin: value })}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="instagram">Instagram</SelectItem>
+                        <SelectItem value="facebook">Facebook</SelectItem>
+                        <SelectItem value="google">Google</SelectItem>
+                        <SelectItem value="indicacao">Indicação</SelectItem>
+                        <SelectItem value="outro">Outro</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
 
-            <Button type="submit" variant="hero" size="lg" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? "Enviando..." : "Enviar mensagem"}
-            </Button>
+                <div className="flex items-start gap-3">
+                  <Checkbox
+                    id="acceptWhatsApp"
+                    checked={formData.acceptWhatsApp}
+                    onCheckedChange={(checked) =>
+                      setFormData({ ...formData, acceptWhatsApp: checked as boolean })
+                    }
+                  />
+                  <Label htmlFor="acceptWhatsApp" className="text-sm leading-relaxed cursor-pointer">
+                    Aceito receber mensagens via WhatsApp com informações sobre minha matrícula *
+                  </Label>
+                </div>
 
-            <p className="text-xs text-muted-foreground text-center">
-              * Campos obrigatórios
-            </p>
+                <div className="flex gap-3">
+                  <Button type="button" variant="outline" size="lg" className="flex-1" onClick={() => setStep(1)}>
+                    ← Voltar
+                  </Button>
+                  <Button type="submit" variant="hero" size="lg" className="flex-1" disabled={isSubmitting}>
+                    {isSubmitting ? "Enviando..." : "💬 Falar com consultora agora"}
+                  </Button>
+                </div>
+
+                <p className="text-xs text-accent text-center">
+                  ⚡ Resposta em menos de 5 minutos
+                </p>
+              </>
+            )}
           </form>
         </div>
       </div>

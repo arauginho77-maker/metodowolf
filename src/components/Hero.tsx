@@ -14,9 +14,21 @@ const Hero = () => {
   };
 
   const benefits = [
-    "Processo de matrícula 100% remoto e assistido",
-    "Parcelamento e opções de pagamento flexíveis",
-    "Apoio da consultora até você receber sua matrícula confirmada",
+    {
+      icon: "⚡",
+      title: "Matrícula em até 10 minutos",
+      description: "Processo 100% online, rápido e assistido",
+    },
+    {
+      icon: "💳",
+      title: "Parcele em até 12x",
+      description: "Opções de pagamento flexíveis",
+    },
+    {
+      icon: "🎓",
+      title: "+ de 500 alunos satisfeitos",
+      description: "Apoio até confirmar sua matrícula",
+    },
   ];
 
   return (
@@ -41,19 +53,26 @@ const Hero = () => {
 
           <div className="grid md:grid-cols-3 gap-4 mb-10 text-left max-w-3xl mx-auto">
             {benefits.map((benefit, index) => (
-              <div key={index} className="flex items-start gap-3 bg-white/95 backdrop-blur-sm p-4 rounded-lg shadow-card">
-                <CheckCircle2 className="h-6 w-6 text-primary shrink-0 mt-0.5" />
-                <span className="text-sm md:text-base text-foreground">{benefit}</span>
+              <div key={index} className="flex flex-col items-center text-center bg-white/95 backdrop-blur-sm p-6 rounded-xl shadow-card hover:shadow-elevated transition-smooth">
+                <div className="text-5xl mb-3">
+                  {benefit.icon}
+                </div>
+                <h3 className="font-display text-xl font-bold text-primary mb-2">
+                  {benefit.title}
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  {benefit.description}
+                </p>
               </div>
             ))}
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button variant="hero" size="xl" onClick={handleWhatsAppClick}>
-              Falar com a consultora
+              💬 Falar com consultora (Grátis)
             </Button>
             <Button variant="outline" size="xl" onClick={scrollToCourses} className="bg-white/95 backdrop-blur-sm border-white text-foreground hover:bg-white hover:text-primary">
-              Ver cursos
+              🎓 Quero conhecer os cursos
             </Button>
           </div>
         </div>
