@@ -22,12 +22,12 @@ const Hero = () => {
   return (
     <section id="inicio" className="relative min-h-screen flex items-center overflow-hidden">
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat brightness-75 blur-[1px]"
         style={{
           backgroundImage: `url('/src/assets/hero-students.jpg')`,
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/70" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/60" />
       
       <div className="container mx-auto px-4 relative z-10 py-32">
         <div className="max-w-4xl mx-auto text-center">

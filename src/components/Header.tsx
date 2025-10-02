@@ -39,7 +39,7 @@ const Header = () => {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-smooth ${
-        isScrolled ? "bg-background/95 backdrop-blur-md shadow-elevated" : "bg-transparent"
+        isScrolled ? "bg-background/95 backdrop-blur-md shadow-elevated" : "bg-background/90 backdrop-blur-sm"
       }`}
     >
       <div className="container mx-auto px-4">
@@ -62,7 +62,7 @@ const Header = () => {
           </nav>
 
           <div className="hidden lg:flex items-center gap-4">
-            <a href="tel:+5566981109810" className="text-sm text-muted-foreground hover:text-primary transition-smooth">
+            <a href="tel:+5566981109810" className="text-sm text-foreground hover:text-primary transition-smooth">
               (66) 98110-9810
             </a>
             <Button variant="hero" size="default" onClick={handleWhatsAppClick}>
@@ -80,7 +80,7 @@ const Header = () => {
         </div>
 
         {isMobileMenuOpen && (
-          <div className="lg:hidden pb-6 animate-in slide-in-from-top-2">
+          <div className="lg:hidden pb-6 animate-in slide-in-from-top-2 bg-background/95 backdrop-blur-sm rounded-lg mt-2 p-4">
             <nav className="flex flex-col gap-4">
               {menuItems.map((item) => (
                 <button
