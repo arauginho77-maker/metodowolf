@@ -77,10 +77,20 @@ export default {
             height: "0",
           },
         },
+        "pulse-glow": {
+          "0%, 100%": { boxShadow: "0 0 0 0 hsl(96 90% 52% / 0.45)" },
+          "50%": { boxShadow: "0 0 0 14px hsl(96 90% 52% / 0)" },
+        },
+        "float-up": {
+          from: { opacity: "0", transform: "translateY(14px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "pulse-glow": "pulse-glow 2.2s ease-in-out infinite",
+        "float-up": "float-up 0.5s ease-out both",
       },
     },
   },
