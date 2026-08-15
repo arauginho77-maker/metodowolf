@@ -1,41 +1,31 @@
-import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import HowItWorks from "@/components/HowItWorks";
-import MiniFAQ from "@/components/MiniFAQ";
-import CourseList from "@/components/CourseList";
-import SocialProofStats from "@/components/SocialProofStats";
-import Advantages from "@/components/Advantages";
-import Testimonials from "@/components/Testimonials";
-import FAQ from "@/components/FAQ";
-import ContactForm from "@/components/ContactForm";
-import Footer from "@/components/Footer";
-import WhatsAppButton from "@/components/WhatsAppButton";
-import UrgencyBanner from "@/components/UrgencyBanner";
-import FloatingCTA from "@/components/FloatingCTA";
-import ProactiveWhatsAppPopup from "@/components/ProactiveWhatsAppPopup";
-import ExitIntentPopup from "@/components/ExitIntentPopup";
-import SocialProofNotification from "@/components/SocialProofNotification";
+import WolfHeader from "@/components/wolf/WolfHeader";
+import WolfHero from "@/components/wolf/WolfHero";
+import WolfDelivery from "@/components/wolf/WolfDelivery";
+import WolfMultiWhats from "@/components/wolf/WolfMultiWhats";
+import WolfSteps from "@/components/wolf/WolfSteps";
+import WolfForWho from "@/components/wolf/WolfForWho";
+import WolfOffer from "@/components/wolf/WolfOffer";
+import WolfFaq from "@/components/wolf/WolfFaq";
+import WolfFinalCta from "@/components/wolf/WolfFinalCta";
+import WolfFooter from "@/components/wolf/WolfFooter";
+import WolfStickyCta from "@/components/wolf/WolfStickyCta";
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
-      <UrgencyBanner />
-      <FloatingCTA />
-      <Header />
-      <Hero />
-      <SocialProofStats />
-      <HowItWorks />
-      <MiniFAQ />
-      <CourseList />
-      <Advantages />
-      <Testimonials />
-      <FAQ />
-      <ContactForm />
-      <Footer />
-      <WhatsAppButton />
-      <ProactiveWhatsAppPopup />
-      <ExitIntentPopup />
-      <SocialProofNotification />
+    <div className="min-h-screen bg-background">
+      <WolfHeader />
+      <main>
+        <WolfHero />
+        <WolfDelivery />
+        <WolfMultiWhats />
+        <WolfSteps />
+        <WolfForWho />
+        <WolfOffer />
+        <WolfFaq />
+        <WolfFinalCta />
+      </main>
+      <WolfFooter />
+      <WolfStickyCta />
     </div>
   );
 };
